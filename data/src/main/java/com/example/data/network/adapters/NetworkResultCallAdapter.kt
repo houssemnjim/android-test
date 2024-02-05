@@ -3,6 +3,7 @@ package com.example.data.network.adapters
 import retrofit2.Call
 import retrofit2.CallAdapter
 import java.lang.reflect.Type
+import com.example.domain.commons.Result
 
 /**
  * Reference : https://proandroiddev.com/modeling-retrofit-responses-with-sealed-classes-and-coroutines-9d6302077dfe

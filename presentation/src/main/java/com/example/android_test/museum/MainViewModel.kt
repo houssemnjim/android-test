@@ -1,4 +1,6 @@
 package com.example.android_test.museum
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainViewModel : ViewModel() {
 }
