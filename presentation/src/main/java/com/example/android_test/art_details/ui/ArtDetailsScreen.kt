@@ -96,6 +96,7 @@ fun ArtDetailsScreen(modifier: Modifier = Modifier, onBackClicked: () -> Unit) {
 
 }
 
+// Maker item
 @Composable
 fun ArtistInfoView(maker: MakerElement?, modifier: Modifier) {
     Column(

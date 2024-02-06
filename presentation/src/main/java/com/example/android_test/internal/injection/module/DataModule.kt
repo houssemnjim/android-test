@@ -68,6 +68,7 @@ class DataModule {
     }
 
 
+    // Provide our repos/usecases
     @Provides
     fun provideMuseumRepository(museumRepositoryImpl: MuseumRepositoryImpl): MuseumRepository =
         museumRepositoryImpl

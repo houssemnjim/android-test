@@ -1,6 +1,5 @@
 package com.example.android_test.museum.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,9 +18,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,6 +36,7 @@ fun MuseumScreen(
     modifier: Modifier = Modifier
 ) {
     val mainViewModel: MainViewModel = viewModel()
+    // we get the list of art from our model as a StateFlow and we collect that
     val artObjectsList by mainViewModel.museumViewElements.collectAsStateWithLifecycle()
 
     LazyVerticalGrid(
@@ -54,6 +54,7 @@ fun MuseumScreen(
 }
 
 
+// Our art item : a Card with the Image and the art title
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ArtItem(item: ArtObjectElement, mainViewModel: MainViewModel, modifier: Modifier) {
@@ -85,6 +86,7 @@ fun ArtItem(item: ArtObjectElement, mainViewModel: MainViewModel, modifier: Modi
                     .align(Alignment.CenterHorizontally),
                 fontSize = 14.sp,
                 maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
                 fontWeight = FontWeight.Bold
             )
         }
