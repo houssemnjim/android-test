@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -48,6 +49,8 @@ dependencies {
     implementation("com.google.dagger:dagger-android:2.50")
     implementation("com.google.dagger:dagger-android-support:2.50")
     annotationProcessor("com.google.dagger:dagger-android-processor:2.50")
+    kapt("com.google.dagger:dagger-compiler:2.50")
+    kapt("com.google.dagger:dagger-android-processor:2.50")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

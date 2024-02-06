@@ -12,12 +12,15 @@ import javax.inject.Inject
 class MuseumMapper @Inject constructor() {
     fun mapMuseum(museum: Museum): MuseumEntity =
         MuseumEntity(
-            museum.artObjects?.map {
+            museum.artObjects.map {
                 mapArtObject(it)
             }
         )
 
-    private fun mapArtObject(artObject: ArtObject): ArtObjectEntity =
-        ArtObjectEntity(artObject.objectNumber, artObject.title, artObject.webImage?.url)
+    private fun mapArtObject(artObject: ArtObject): ArtObjectEntity {
+
+        return ArtObjectEntity(artObject.objectNumber, artObject.title, artObject.webImage?.url)
+    }
+
 
 }

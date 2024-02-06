@@ -1,46 +1,42 @@
 package com.example.android_test.museum
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.android_test.ui.theme.AndroidtestTheme
+import androidx.lifecycle.ViewModelProvider
+import com.example.android_test.art_details.ArtDetailsActivity
+import com.example.android_test.museum.ui.MuseumScreen
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class MainActivity : ComponentActivity() {
+class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AndroidtestTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+            MuseumScreen()
+        }
+
+        this.viewModel = ViewModelProvider(this, this.viewModelFactory)[MainViewModel::class.java]
+
+        viewModel.getMuseumArtObjects()
+
+        // Observe click on items
+        // i used live data here because it's lifecycle aware
+        viewModel.artObjectClicked.observe(this) {
+            if (it != "") {
+                val intent = Intent(this, ArtDetailsActivity::class.java)
+                intent.putExtra(OBJECT_NUMBER_EXTRA, it)
+                startActivity(intent)
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AndroidtestTheme {
-        Greeting("Android")
+    companion object {
+        private const val OBJECT_NUMBER_EXTRA = "objectNumber"
     }
 }

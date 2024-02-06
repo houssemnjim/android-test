@@ -7,9 +7,9 @@ import retrofit2.http.Path
 import com.example.domain.commons.Result
 
 interface ApiService {
-    @GET("api/nl/collection")
+    @GET("api/en/collection")
     suspend fun getArtObjects(): Result<Museum>
 
-    @GET("api/nl/collection/{object-number}")
+    @GET("api/en/collection/{object-number}")
     suspend fun getArtDetails(@Path(value = "object-number") objectNumber: String): Result<ArtObjectDetails>
 }

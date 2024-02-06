@@ -3,6 +3,9 @@ package com.example.android_test.internal.injection.module.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android_test.museum.MainViewModel
+import com.example.data.repositories.MuseumRepositoryImpl
+import com.example.domain.repositories.MuseumRepository
+import com.example.domain.usecase.MuseumUseCase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Provider
@@ -25,4 +28,5 @@ class MainModule {
             }
         }
     }
+
 }
