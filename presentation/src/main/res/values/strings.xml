@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android-test</string>
+    <string name="art_details_title">Art Details</string>
 </resources>
