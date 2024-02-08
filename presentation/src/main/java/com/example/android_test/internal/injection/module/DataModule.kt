@@ -1,7 +1,6 @@
 package com.example.android_test.internal.injection.module
 
 import android.content.Context
-import com.example.android_test.MuseumApplication
 import com.example.android_test.internal.network.RetrofitFactory
 import com.example.data.api.ApiService
 import com.example.data.network.adapters.NetworkResultCallAdapterFactory
@@ -14,21 +13,21 @@ import com.example.domain.usecase.MuseumUseCase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
-import javax.inject.Singleton
 
 // A data module class where we can init our app dependencies
 @Module
+@InstallIn(SingletonComponent::class)
 class DataModule {
 
-
-    @Singleton
     @Provides
-    fun provideContext(application: MuseumApplication): Context {
-        return application.applicationContext
-    }
+    fun provideContext(@ApplicationContext context: Context): Context = context
+
 
     @Provides
     fun provideOkHttpClient(
@@ -39,7 +38,6 @@ class DataModule {
         return OkHttpClient.Builder().cache(cache)
     }
 
-    @Singleton
     @Provides
     fun provideGson(): Gson {
         return Gson()
@@ -67,8 +65,6 @@ class DataModule {
         const val HTTP_RESPONSE_DISK_CACHE_MAX_SIZE: Long = 20 * 1024 * 1024
     }
 
-
-    // Provide our repos/usecases
     @Provides
     fun provideMuseumRepository(museumRepositoryImpl: MuseumRepositoryImpl): MuseumRepository =
         museumRepositoryImpl

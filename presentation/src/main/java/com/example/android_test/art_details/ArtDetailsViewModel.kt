@@ -8,12 +8,14 @@ import com.example.android_test.view_element.model.ArtObjectDetailsElement
 import com.example.domain.commons.Failure
 import com.example.domain.commons.Success
 import com.example.domain.usecase.ArtObjectDetailsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ArtDetailsViewModel @Inject constructor(
     private val artObjectDetailsUseCase: ArtObjectDetailsUseCase,
     private val detailsViewElementFactory: ArtObjectDetailsViewElementFactory

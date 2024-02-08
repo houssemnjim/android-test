@@ -25,17 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.android_test.museum.MainViewModel
-import com.example.android_test.museum.viewstate.MuseumScreenAction
 import com.example.android_test.view_element.model.ArtObjectElement
 
 @Composable
 fun MuseumScreen(
+    navController: NavController,
+    mainViewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    val mainViewModel: MainViewModel = viewModel()
     // we get the list of art from our model as a StateFlow and we collect that
     val artObjectsList by mainViewModel.museumViewElements.collectAsStateWithLifecycle()
 
@@ -45,10 +46,9 @@ fun MuseumScreen(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = modifier
             .fillMaxWidth()
-
     ) {
         items(artObjectsList.artObjects) { item ->
-            ArtItem(item = item, mainViewModel, modifier)
+            ArtItem(item = item, navController = navController, modifier)
         }
     }
 }
@@ -57,16 +57,12 @@ fun MuseumScreen(
 // Our art item : a Card with the Image and the art title
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ArtItem(item: ArtObjectElement, mainViewModel: MainViewModel, modifier: Modifier) {
+fun ArtItem(item: ArtObjectElement, navController: NavController, modifier: Modifier) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = modifier
             .padding(8.dp)
             .clickable {
-                mainViewModel.sendAction(
-                    MuseumScreenAction.DisplayArtObjectDetailsAction(
-                        item.id ?: ""
-                    )
-                )
+                navController.navigate("details/${item.id}")
             }) {
         Column(
             modifier = modifier.fillMaxWidth()

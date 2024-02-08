@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.android_test.R
@@ -34,9 +34,12 @@ import com.example.android_test.view_element.model.MakerElement
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ArtDetailsScreen(modifier: Modifier = Modifier, onBackClicked: () -> Unit) {
-    // init modifier once and use it for all the components, good practice
-    val viewModel: ArtDetailsViewModel = viewModel()
+fun ArtDetailsScreen(
+    navController: NavController,
+    viewModel: ArtDetailsViewModel,
+    itemId: String?,
+    modifier: Modifier = Modifier
+) {
     val artObjectItem by viewModel.detailsViewElements.collectAsStateWithLifecycle()
 
     // Creating a scroll state for the column
@@ -52,7 +55,7 @@ fun ArtDetailsScreen(modifier: Modifier = Modifier, onBackClicked: () -> Unit) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onBackClicked() }) {
+                    IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",
