@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,8 +41,14 @@ fun ArtDetailsScreen(
     itemId: String?,
     modifier: Modifier = Modifier
 ) {
-    val artObjectItem by viewModel.detailsViewElements.collectAsStateWithLifecycle()
 
+    LaunchedEffect(itemId) {
+        itemId?.let {
+            viewModel.getArtDetails(itemId)
+        }
+    }
+
+    val artObjectItem by viewModel.detailsViewElements.collectAsStateWithLifecycle()
     // Creating a scroll state for the column
     val scrollState = rememberScrollState()
 
